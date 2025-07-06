@@ -26,7 +26,7 @@ export default function Footer() {
         transition={{ duration: 0.8 }}
         className="footer-text"
       >
-        <p style={{ fontSize: '1.6rem', color: 'var(--white-color)' }}>
+        <p style={{ fontSize: '1.7rem', color: 'var(--white-color)' }}>
           Copyright © 2025 by Abdullah Shishir | All Rights Reserved.
         </p>
       </motion.div>

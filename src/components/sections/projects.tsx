@@ -123,59 +123,26 @@ export default function ProjectsSection() {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                background: 'linear-gradient(rgba(20, 20, 20, 0.75), var(--main-color))',
-                color: 'var(--white-color)',
                 display: 'flex',
-                justifyContent: 'center',
                 flexDirection: 'column',
-                textAlign: 'center',
-                padding: '0 4rem',
+                justifyContent: 'center',
+                alignItems: 'center',
                 transition: 'opacity 0.5s ease',
                 opacity: isMobile ? (activeIndex === index ? 1 : 0) : undefined,
                 pointerEvents: isMobile ? (activeIndex === index ? 'auto' : 'none') : undefined
               }}
             >
-              <h4 style={{ fontSize: '3rem', marginBottom: '1rem', textShadow: '0 2px 8px rgba(0,0,0,0.45)' }}>{project.title}</h4>
-              <p style={{ fontSize: '1.6rem', margin: '0.3rem 0 1rem', textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}>{project.description}</p>
+              <div className="projects-layer-content">
+                <h4>{project.title}</h4>
+                <p>{project.description}</p>
+              </div>
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '5rem',
-                  height: '5rem',
-                  background: 'var(--white-color)',
-                  borderRadius: '50%',
-                  margin: '0 auto',
-                  textDecoration: 'none',
-                  position: 'relative',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-                  transition: 'transform 0.2s',
-                  transform: 'scale(1)'
-                }}
-                className="project-link"
+                className="project-link redesigned"
               >
-                <ExternalLink size={24} style={{ color: 'var(--main-color)', fontWeight: 700 }} />
-                <span
-                  className="link-text"
-                  style={{
-                    position: 'absolute',
-                    bottom: '-3rem',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    color: 'var(--white-color)',
-                    fontSize: '1.4rem',
-                    fontWeight: 'bold',
-                    whiteSpace: 'nowrap',
-                    letterSpacing: '0.5px',
-                    textShadow: '0 2px 8px rgba(0,0,0,0.15)'
-                  }}
-                >
-                  Open
-                </span>
+                <ExternalLink size={28} />
               </a>
             </div>
           </motion.div>
@@ -188,12 +155,57 @@ export default function ProjectsSection() {
           pointer-events: auto;
         }
         .projects-layer {
-          opacity: 0;
-          pointer-events: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 0;
         }
-        .projects-box:hover .projects-layer .project-link {
-          transform: scale(1.1);
-          box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        .projects-layer-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          padding: 2.5rem 2rem 1.5rem 2rem;
+        }
+        .projects-layer-content h4 {
+          font-size: 2.4rem;
+          font-weight: 700;
+          margin-bottom: 1.2rem;
+          color: inherit;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+        .projects-layer-content p {
+          font-size: 1.4rem;
+          color: inherit;
+          max-width: 90%;
+          margin: 0 auto 0.5rem auto;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+        .project-link.redesigned {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          left: 50%;
+          bottom: 2.2rem;
+          transform: translateX(-50%);
+          width: 3.8rem;
+          height: 3.8rem;
+          background: rgba(30, 30, 30, 0.55);
+          border-radius: 50%;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+          color: #fff;
+          z-index: 2;
+          border: 2px solid rgba(255,255,255,0.7);
+          transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .project-link.redesigned:hover {
+          background: rgba(30, 30, 30, 0.85);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+          transform: translateX(-50%) scale(1.08);
         }
         @media (max-width: 1200px) {
           .projects-container {
@@ -209,25 +221,16 @@ export default function ProjectsSection() {
           }
         }
         @media (max-width: 600px) {
-          .projects-layer {
-            padding: 0 1.2rem;
+          .projects-layer-content h4 {
+            font-size: 1.5rem !important;
           }
-          .projects-box {
-            border-radius: 1rem;
-          }
-          .projects-layer h4 {
-            font-size: 2rem !important;
-          }
-          .projects-layer p {
-            font-size: 1.1rem !important;
-          }
-          .project-link {
-            width: 3.5rem !important;
-            height: 3.5rem !important;
-          }
-          .link-text {
+          .projects-layer-content p {
             font-size: 1rem !important;
-            bottom: -2rem !important;
+          }
+          .project-link.redesigned {
+            width: 2.8rem !important;
+            height: 2.8rem !important;
+            bottom: 1.2rem !important;
           }
         }
       `}</style>

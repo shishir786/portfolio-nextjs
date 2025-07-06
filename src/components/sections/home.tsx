@@ -119,7 +119,14 @@ export default function HomeSection() {
             </a>
           ))}
         </div>
-        <a href="/pdf/Abdullah-Shishir-Resume.pdf" className="home-cv-btn">Download CV</a>
+        <a href="/pdf/Abdullah-Shishir-Resume.pdf" className="home-cv-btn" download>
+          <span>Download CV</span>
+          <span className="cv-btn-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 3V17M11 17L5 11M11 17L17 11" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </a>
       </div>
       <div className="home-right">
         <img src="/images/home.jpg" alt="Abdullah Shishir" className="home-img" />
@@ -227,20 +234,37 @@ export default function HomeSection() {
           opacity: 1;
         }
         .home-cv-btn {
-          display: inline-block;
-          padding: 0.8rem 2.2rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.7rem;
+          padding: 0.95rem 2.4rem;
           background: var(--main-color);
           color: var(--white-color);
-          border-radius: 0.5rem;
+          border-radius: 0.7rem;
           font-weight: 700;
-          font-size: 1.1rem;
+          font-size: 1.18rem;
           text-decoration: none;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-          border: none;
-          transition: background 0.2s, color 0.2s;
+          box-shadow: 0 4px 18px 0 rgba(80,80,180,0.13);
+          border: 1.5px solid var(--main-color);
+          transition: background 0.22s cubic-bezier(.4,2,.6,1), color 0.22s, box-shadow 0.22s, transform 0.18s;
+          position: relative;
+          overflow: hidden;
+        }
+        .home-cv-btn .cv-btn-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--white-color);
+          transition: color 0.22s;
         }
         .home-cv-btn:hover {
           background: var(--white-color);
+          color: var(--main-color);
+          box-shadow: 0 8px 32px 0 rgba(80,80,180,0.18);
+          transform: translateY(-2px) scale(1.045);
+          border: 1.5px solid var(--main-color);
+        }
+        .home-cv-btn:hover .cv-btn-icon {
           color: var(--main-color);
         }
         .home-right {

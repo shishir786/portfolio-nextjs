@@ -21,7 +21,14 @@ export default function AboutSection() {
           <div className="about-edu-degree">Bachelor of Science in Computer Science and Engineering</div>
           <div className="about-edu-years">2022 – 2025</div>
         </div>
-        <a href="https://www.linkedin.com/in/abdullah-shishir/" className="about-readmore-btn-screenshot" target="_blank" rel="noopener noreferrer">Read More</a>
+        <a href="https://www.linkedin.com/in/abdullah-shishir/" className="about-readmore-btn-screenshot" target="_blank" rel="noopener noreferrer">
+          <span>Connect Me</span>
+          <span className="about-btn-icon" aria-hidden="true" style={{ display: 'inline-flex', verticalAlign: 'middle', marginLeft: '0.5em' }}>
+            <svg width="20" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 11H17M17 11L11 5M17 11L11 17" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </a>
       </div>
       <style jsx>{`
         .about-section-screenshot {

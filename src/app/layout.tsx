@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -41,6 +42,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
+
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -51,6 +53,7 @@ export default function RootLayout({
           <SpeedInsights /> {/* This usage is required to keep the import */}
           <Analytics />
         </ThemeProvider>
+
       </body>
     </html>
   );

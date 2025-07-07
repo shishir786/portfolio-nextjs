@@ -10,21 +10,27 @@ export default function ProjectsSection() {
   const projects = [
     {
       title: "Employee Management System FrontEnd",
-      description: "The Online Employee Management System FrontEnd Build with Next Js.",
+      description: "The Online Employee Management System FrontEnd Build with Next Js Rest API",
       image: "/images/EMS-frontend.png",
       link: "https://github.com/shishir786/EMS-frontend-Next-Js.git"
     },
     {
       title: "Employee Management System BackEnd",
-      description: "Employee Management System BackEnd Build with Nest Js.",
+      description: "Employee Management System BackEnd Build with Nest Js and PostgresSQL",
       image: "/images/EMS-Nest.jpg",
       link: "https://github.com/shishir786/employee-management-system-Nest-Js.git"
     },
     {
       title: "Employee Management System Spring Boot BackEnd",
-      description: "Employee Management System BackEnd Build with Java Spring Boot.",
+      description: "Employee Management System BackEnd Build with Java Spring Boot and PostgresSQL",
       image: "/images/EMS-springboot.png",
       link: "https://github.com/shishir786/employee-management-system-spring-boot.git"
+    },
+    {
+      title: "Tech Shop",
+      description: "Tech Shop Website using Html, CSS, JavaScript, PHP and MySQL as database",
+      image: "/images/techshop.jpg",
+      link: "https://github.com/shishir786/Online-Tech-Shop.git"
     },
     {
       title: "Restaurant Management System",

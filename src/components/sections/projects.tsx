@@ -12,7 +12,7 @@ export default function ProjectsSection() {
       title: "Employee Management System FrontEnd",
       description: "The Online Employee Management System FrontEnd Build with Next Js Rest API",
       image: "/images/EMS-frontend.png",
-      link: "https://github.com/shishir786/EMS-frontend-Next-Js.git"
+      link: "https://ems-next-js.vercel.app/"
     },
     {
       title: "Employee Management System BackEnd",

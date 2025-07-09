@@ -129,8 +129,10 @@ export default function ProjectsSection() {
               <div className="project-image-container" style={{
                 position: 'relative',
                 width: '100%',
-                height: '200px',
-                overflow: 'hidden'
+                aspectRatio: '16/9',
+                minHeight: '180px',
+                overflow: 'hidden',
+                background: '#f0f4ff'
               }}>
                 <Image
                   src={project.image}

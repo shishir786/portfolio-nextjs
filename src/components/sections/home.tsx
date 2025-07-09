@@ -237,18 +237,22 @@ export default function HomeSection() {
           display: inline-flex;
           align-items: center;
           gap: 0.7rem;
-          padding: 0.95rem 2.4rem;
+          padding: 1.1rem 2.5rem;
           background: var(--main-color);
-          color: var(--white-color);
+          color: #fff;
           border-radius: 0.7rem;
           font-weight: 700;
-          font-size: 1.18rem;
+          font-size: 1.3rem;
           text-decoration: none;
-          box-shadow: 0 4px 18px 0 rgba(80,80,180,0.13);
-          border: 1.5px solid var(--main-color);
-          transition: background 0.22s cubic-bezier(.4,2,.6,1), color 0.22s, box-shadow 0.22s, transform 0.18s;
-          position: relative;
-          overflow: hidden;
+          box-shadow: 0 4px 0 #d1d5db;
+          border: none;
+          transition: background 0.2s, color 0.2s, transform 0.2s;
+          margin-bottom: 0;
+        }
+        .home-cv-btn:hover {
+          background: #0e9488;
+          color: #fff;
+          transform: translateY(-2px) scale(1.04);
         }
         .home-cv-btn .cv-btn-icon {
           display: flex;
@@ -256,13 +260,6 @@ export default function HomeSection() {
           justify-content: center;
           color: var(--white-color);
           transition: color 0.22s;
-        }
-        .home-cv-btn:hover {
-          background: var(--white-color);
-          color: var(--main-color);
-          box-shadow: 0 8px 32px 0 rgba(80,80,180,0.18);
-          transform: translateY(-2px) scale(1.045);
-          border: 1.5px solid var(--main-color);
         }
         .home-cv-btn:hover .cv-btn-icon {
           color: var(--main-color);
@@ -284,16 +281,14 @@ export default function HomeSection() {
         @media (max-width: 900px) {
           .home-section {
             flex-direction: column;
-            padding: 2rem 2vw;
-            gap: 2rem;
+            padding: 2rem 2vw 2rem 2vw;
+            gap: 1rem;
           }
           .home-right {
-            margin-top: 2rem;
-            justify-content: center;
+            margin-top: 0 !important;
           }
           .home-img {
-            width: 300px;
-            height: 300px;
+            margin-top: 0 !important;
           }
         }
         @media (max-width: 600px) {
@@ -309,8 +304,10 @@ export default function HomeSection() {
           }
           .home-section {
             display: block;
-            gap: 1rem;
+            gap: 0.5rem;
             padding: 80px 1vw 1rem 1vw;
+            padding-bottom: 1.5rem !important;
+            min-height: unset !important;
           }
           .home-right {
             display: none;
@@ -327,6 +324,12 @@ export default function HomeSection() {
           .home-left h2 > span {
             display: block !important;
             font-size: 1.5rem !important;
+          }
+          .home-socials {
+            margin-bottom: 1.2rem !important;
+          }
+          .home-cv-btn {
+            margin-bottom: 0.5rem !important;
           }
         }
         .profession-mobile-break {

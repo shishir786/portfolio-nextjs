@@ -1,282 +1,394 @@
 "use client"
 
-import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
-import Image from 'next/image'
-import { useState } from 'react'
-import LoaderProject from '../LoaderProject'
+import { motion } from 'framer-motion';
+import { ExternalLink, Github } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import { PROJECTS_DATA, Project } from '../../data/projects';
+import LoaderProject from '../LoaderProject';
 
 export default function ProjectsSection() {
-  const projects = [
-    {
-      title: "Employee Management System FrontEnd",
-      description: "The Online Employee Management System FrontEnd Build with Next Js Rest API",
-      image: "/images/EMS-frontend.png",
-      link: "https://ems-next-js.vercel.app/"
-    },
-    {
-      title: "Employee Management System BackEnd",
-      description: "Employee Management System BackEnd Build with Nest Js and PostgresSQL",
-      image: "/images/EMS-Nest.jpg",
-      link: "https://github.com/shishir786/employee-management-system-Nest-Js.git"
-    },
-    {
-      title: "Employee Management System Spring Boot BackEnd",
-      description: "Employee Management System BackEnd Build with Java Spring Boot and PostgresSQL",
-      image: "/images/EMS-springboot.png",
-      link: "https://github.com/shishir786/employee-management-system-spring-boot.git"
-    },
-    {
-      title: "Tech Shop",
-      description: "Tech Shop Website using Html, CSS, JavaScript, PHP and MySQL as database",
-      image: "/images/techshop.jpg",
-      link: "https://github.com/shishir786/Online-Tech-Shop.git"
-    },
-    {
-      title: "Restaurant Management System",
-      description: "The Restaurant Management System is a desktop application Built with C# Forms and the .NET Framework 4.72",
-      image: "/images/resturent.jpg",
-      link: "https://github.com/shishir786/Resturent-Manegement-System.git"
-    },
-    {
-      title: "Tech Shop Java Project",
-      description: "The Tech Shop Java Project is a simple yet comprehensive shopping and inventory management system built using Java",
-      image: "/images/techjava.jpg",
-      link: "https://github.com/shishir786/Shop-java-project.git"
-    },
-    {
-      title: "Train Journey View",
-      description: "This project simulates a train journey using OpenGL, creating a visually engaging 3D environment",
-      image: "/images/train.png",
-      link: "https://github.com/shishir786/Train-journy-view-using-open_gl-.git"
-    },
-    {
-      title: "Tour Data Collect",
-      description: "This project helps store and process travel details efficiently using PHP and MySQL as database",
-      image: "/images/tour.jpg",
-      link: "https://github.com/shishir786/Tour-Data-Collect.git"
-    }
-  ]
+  const projects: Project[] = PROJECTS_DATA;
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900
+  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+
+  const filteredProjects = projects.filter(project => {
+    const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory;
+    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
 
   return (
-    <>
-      <section id="projects" className="projects" style={{ background: 'var(--bg-color)', paddingBottom: '10rem' }}>
-        <motion.h2
+    <section
+      id="projects"
+      className="projects-section"
+      style={{
+        background: 'var(--bg-color)',
+        padding: '8rem 5%',
+        position: 'relative'
+      }}
+    >
+      <div className="container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="heading"
-          style={{
-            marginBottom: '4rem',
-            fontSize: '4.5rem',
+          className="section-header"
+        >
+          <h2 className="section-title" style={{
+            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
             textAlign: 'center',
-            color: 'var(--text-color)'
-          }}
-        >
-          Latest <span style={{ color: 'var(--main-color)' }}>Projects</span>
-        </motion.h2>
+            color: 'var(--text-color)',
+            marginBottom: '1rem'
+          }}>
+            My <span style={{ color: 'var(--main-color)' }}>Projects</span>
+          </h2>
+          <p className="section-subtitle" style={{
+            fontSize: '1.2rem',
+            textAlign: 'center',
+            color: 'var(--text-secondary)',
+            maxWidth: '700px',
+            margin: '0 auto 2.5rem auto',
+            lineHeight: '1.6'
+          }}>
+            Here are some of my recent projects. Use the filters or search to explore.
+          </p>
 
-        <div
-          className="projects-container"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            alignItems: 'center',
-            gap: '2.5rem'
-          }}
-        >
-          {projects.map((project, index) => (
+          {/* Filter Controls */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center', marginBottom: 32 }}>
+            <input
+              type="text"
+              placeholder="Search projects..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              style={{ padding: '0.9rem 1.2rem', borderRadius: 20, border: '2px solid var(--main-color)', minWidth: 220, fontSize: 16, marginRight: 8, outline: 'none', color: 'var(--text-color)', background: 'var(--white-color)', boxShadow: '0 1px 6px rgba(0,0,0,0.03)' }}
+            />
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                style={{
+                  padding: '0.9rem 1.6rem',
+                  borderRadius: 20,
+                  border: '2px solid var(--main-color)',
+                  background: selectedCategory === category ? 'var(--main-color)' : 'var(--white-color)',
+                  color: selectedCategory === category ? 'white' : 'var(--main-color)',
+                  fontWeight: selectedCategory === category ? 800 : 600,
+                  fontSize: 16,
+                  cursor: 'pointer',
+                  marginRight: 4,
+                  transition: 'all 0.2s',
+                  boxShadow: selectedCategory === category ? '0 2px 8px var(--shadow-color)' : 'none',
+                }}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <div style={{ marginBottom: 20, textAlign: 'center', color: 'var(--text-light)', fontSize: 16 }}>
+            Showing {filteredProjects.length} of {projects.length} projects
+          </div>
+        </motion.div>
+
+        <div className="projects-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+          gap: '2rem',
+          alignItems: 'stretch'
+        }}>
+          {filteredProjects.map((project, index) => (
             <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="projects-box"
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                if (isMobile) setActiveIndex(activeIndex === index ? null : index)
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="project-card"
+              style={{
+                background: 'var(--card-bg)',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                position: 'relative',
+                border: '1px solid var(--card-border)',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
               }}
-              onMouseLeave={() => {
-                if (isMobile) setActiveIndex(null)
+              whileHover={{
+                y: -5,
+                boxShadow: '0 15px 40px rgba(0,0,0,0.15)'
               }}
             >
-              <Image
-                src={project.image}
-                alt={project.title}
-                width={400}
-                height={300}
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  transition: '0.5s ease'
-                }}
-              />
-              <div
-                className={`projects-layer${isMobile && activeIndex === index ? ' visible' : ''}`}
-              >
-                <div className="projects-layer-content">
-                  <h4>{project.title}</h4>
-                  <p>{project.description}</p>
+              <div className="project-image-container" style={{
+                position: 'relative',
+                width: '100%',
+                height: '200px',
+                overflow: 'hidden'
+              }}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  style={{
+                    objectFit: 'cover',
+                    transition: 'transform 0.5s ease'
+                  }}
+                  className="project-image"
+                />
+              </div>
+
+              <div className="project-content" style={{
+                padding: '1.5rem',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
+                <div className="project-tags" style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem',
+                  marginBottom: '1.2rem'
+                }}>
+                  {project.tags.map(tag => (
+                    <span key={tag} style={{
+                      background: 'var(--tag-bg)',
+                      color: 'var(--tag-text)',
+                      padding: '0.4rem 1rem',
+                      borderRadius: '20px',
+                      fontSize: '1rem',
+                      fontWeight: '600',
+                      letterSpacing: '0.01em'
+                    }}>
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link redesigned bottom-right"
-                  onClick={e => { e.stopPropagation(); }}
-                >
-                  <ArrowUpRight size={26} />
-                </a>
+
+                <h3 style={{
+                  fontSize: '1.7rem',
+                  fontWeight: '700',
+                  marginBottom: '1rem',
+                  color: 'var(--text-color)',
+                  letterSpacing: '-0.5px',
+                  lineHeight: 1.3
+                }}>
+                  {project.title}
+                </h3>
+
+                <p style={{
+                  fontSize: '1.15rem',
+                  color: 'var(--text-secondary)',
+                  marginBottom: '1.7rem',
+                  lineHeight: '1.7',
+                  fontWeight: 500,
+                  flex: 1
+                }}>
+                  {project.description}
+                </p>
+
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  gap: '0.8rem',
+                  marginTop: 'auto'
+                }}>
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link github-link"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                        padding: '0.5rem 1rem',
+                        background: 'var(--github-bg)',
+                        color: 'var(--github-text)',
+                        borderRadius: '6px',
+                        fontWeight: '500',
+                        fontSize: '0.9rem',
+                        transition: 'all 0.2s ease',
+                        textDecoration: 'none'
+                      }}
+                    >
+                      <Github size={16} />
+                      Code
+                    </a>
+                  )}
+
+                  {project.demoLink && (
+                    <a
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link demo-link"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                        padding: '0.5rem 1rem',
+                        background: 'var(--main-color)',
+                        color: 'white',
+                        borderRadius: '6px',
+                        fontWeight: '500',
+                        fontSize: '0.9rem',
+                        transition: 'all 0.2s ease',
+                        textDecoration: 'none'
+                      }}
+                    >
+                      <ExternalLink size={16} />
+                      Live Demo
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}
-          <div className="projects-box work-in-progress-box">
-            <div className="projects-layer visible">
-              <div className="projects-layer-content">
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: filteredProjects.length * 0.1 }}
+            className="project-card work-in-progress"
+            style={{
+              background: 'var(--card-bg)',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '300px',
+              border: '1px solid var(--card-border)',
+              position: 'relative'
+            }}
+          >
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(135deg, #A2A8D3 0%, #38598B 100%)',
+              opacity: 0.1,
+              zIndex: 1
+            }} />
+            <div style={{
+              position: 'relative',
+              zIndex: 2,
+              textAlign: 'center',
+              padding: '2rem'
+            }}>
+              <div style={{ transform: 'scale(1.5)', display: 'inline-block' }}>
                 <LoaderProject />
-                <div className="work-in-progress-text">Work in progress ...</div>
               </div>
+              <h3 style={{
+                fontSize: '2.1rem', // 1.4rem * 1.5
+                fontWeight: '700',
+                marginTop: '2.2rem', // 1.5rem * 1.5
+                color: 'var(--text-color)'
+              }}>
+                Work in Progress
+              </h3>
+              <p style={{
+                fontSize: '1.425rem', // 0.95rem * 1.5
+                color: 'var(--text-secondary)',
+                marginTop: '0.8rem',
+                fontWeight: 500
+              }}>
+                More exciting projects coming soon!
+              </p>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
-      <style jsx>{`
-          .projects-box:hover .projects-layer,
-          .projects-layer.visible {
-            opacity: 1 !important;
-            z-index: 10;
+      </div>
+
+      <style jsx global>{`
+        :root {
+          --card-bg: #ffffff;
+          --card-border: #eaeaea;
+          --tag-bg: #f0f4ff;
+          --tag-text: #3a6bff;
+          --text-secondary: #666;
+          --github-bg: #24292e;
+          --github-text: #ffffff;
+          --github-bg-hover: #2d333b;
+          --main-color-dark: #0056b3;
+        }
+
+        .dark {
+          --card-bg: #1e1e1e;
+          --card-border: #333;
+          --tag-bg: #2a2a3a;
+          --tag-text: #a0a0ff;
+          --text-secondary: #aaa;
+        }
+
+        .project-card:hover .project-image {
+          transform: scale(1.05);
+        }
+
+        .project-link:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .github-link:hover {
+          background: var(--github-bg-hover) !important;
+        }
+
+        .demo-link:hover {
+          background: var(--main-color-dark) !important;
+        }
+
+        @media (max-width: 1200px) {
+          .projects-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
           }
-          .projects-layer {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            opacity: 0;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: opacity 0.5s ease;
-            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+          .projects-section {
+            padding: 5rem 5% !important;
           }
-          .projects-layer-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 2.5rem 2rem 1.5rem 2rem;
+
+          .projects-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
           }
-          .projects-layer-content h4 {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: inherit;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 480px) {
+          .section-subtitle {
+            font-size: 1rem !important;
+            margin-bottom: 3rem !important;
           }
-          .projects-layer-content p {
-            font-size: 1.4rem;
-            color: inherit;
-            max-width: 90%;
-            margin: 0 auto 0.5rem auto;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+
+          .project-content {
+            padding: 1.25rem !important;
           }
-          .project-link.redesigned.bottom-right {
-            left: auto;
-            right: 2.2rem;
-            bottom: 2.2rem;
-            transform: none;
+
+          .project-card h3 {
+            font-size: 1.25rem !important;
           }
-          .project-link.redesigned {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            left: 50%;
-            bottom: 2.2rem;
-            transform: translateX(-50%);
-            width: 3.8rem;
-            height: 3.8rem;
-            background: rgba(30, 30, 30, 0.55);
-            border-radius: 50%;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-            color: #fff;
-            z-index: 2;
-            border: 2px solid rgba(255,255,255,0.7);
-            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+
+          .project-link {
+            padding: 0.4rem 0.8rem !important;
+            font-size: 0.85rem !important;
           }
-          .project-link.redesigned:hover {
-            background: rgba(30, 30, 30, 0.85);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.28);
-            transform: translateX(-50%) scale(1.08);
-          }
-          @media (max-width: 1200px) {
-            .projects-container {
-              grid-template-columns: repeat(2, 1fr) !important;
-            }
-          }
-          @media (max-width: 900px) {
-            .projects-container {
-              grid-template-columns: 1fr !important;
-            }
-            .projects-box {
-              min-width: 0;
-            }
-          }
-          @media (max-width: 600px) {
-            .projects-layer-content h4 {
-              font-size: 1.5rem !important;
-            }
-            .projects-layer-content p {
-              font-size: 1rem !important;
-            }
-            .project-link.redesigned.bottom-right {
-              right: 1.2rem !important;
-              bottom: 1.2rem !important;
-            }
-          }
-          .projects-box {
-            min-width: 0;
-            width: 100%;
-            max-width: 100%;
-            min-height: 220px !important;
-            height: 220px !important;
-          }
-          .projects-box img {
-            height: 220px !important;
-            min-height: 220px !important;
-            max-height: 220px !important;
-            object-fit: cover;
-          }
-          .projects-box.work-in-progress-box,
-          .projects-box.work-in-progress-box .projects-layer {
-            background: #A2A8D3 !important;
-            background-image: none !important;
-          }
-          .work-in-progress-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-          }
-          .work-in-progress-text {
-            font-weight: 700;
-            font-size: 1.6rem;
-            color: black;
-            text-align: center;
-            margin-top: 1.2rem;
-          }
-        `}</style>
-    </>
-  )
+        }
+      `}</style>
+    </section>
+  );
 }

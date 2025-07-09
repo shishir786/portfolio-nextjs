@@ -156,14 +156,16 @@ export default function Header() {
       {/* Mobile Menu Button */}
       <div
         id="menu-icon"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setIsOpen(!isOpen);
+          console.log('Menu icon clicked. isOpen:', !isOpen);
+        }}
         style={{
           fontSize: '3.6rem',
           color: 'var(--text-color)',
           display: 'none',
           cursor: 'pointer'
         }}
-        className={isOpen ? 'bx-x' : ''}
       >
         {isOpen ? <X size={36} /> : <Menu size={36} />}
       </div>

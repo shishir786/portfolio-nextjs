@@ -40,14 +40,14 @@ export default function ProjectsSection() {
           transition={{ duration: 0.8 }}
           className="section-header"
         >
-          <h2 className="section-title" style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+          <motion.h2 className="section-title" style={{
+            fontSize: '5rem',
             textAlign: 'center',
             color: 'var(--text-color)',
             marginBottom: '1rem'
           }}>
             My <span style={{ color: 'var(--main-color)' }}>Projects</span>
-          </h2>
+          </motion.h2>
           <p className="section-subtitle" style={{
             fontSize: '1.2rem',
             textAlign: 'center',

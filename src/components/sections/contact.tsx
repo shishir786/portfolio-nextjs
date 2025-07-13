@@ -66,7 +66,7 @@ export default function ContactSection() {
         transition={{ duration: 0.8 }}
         className="heading"
         style={{
-          marginBottom: '3rem',
+          marginBottom: '1rem',
           textAlign: 'center',
           fontSize: '5rem',
           color: 'var(--text-color)'

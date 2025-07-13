@@ -28,7 +28,7 @@ export default function CertificatesSection() {
           className="section-title"
           style={{
             textAlign: 'center',
-            fontSize: 'clamp(2rem, 5vw, 3rem)',
+            fontSize: '5rem',
             marginBottom: '3rem',
             color: 'var(--text-color)'
           }}

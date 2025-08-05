@@ -10,7 +10,7 @@ export default function ServicesSection() {
       icon: Code,
       title: "Web Development",
       description:
-        "Web developer skilled in HTML, CSS, PHP, JavaScript, and JSON, creating dynamic, responsive, and user-friendly websites."
+        "Web developer skilled in Nextjs, NestJs creating dynamic, responsive, and user-friendly websites."
     },
     {
       icon: Code2,

@@ -17,7 +17,7 @@ export default function CertificatesSection() {
       background: 'var(--bg-color)'
     }}>
       <div className="container" style={{
-        maxWidth: '1400px',
+        maxWidth: '1600px',
         margin: '0 auto'
       }}>
         <motion.h2
@@ -38,7 +38,7 @@ export default function CertificatesSection() {
 
         <div className="certificates-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
           gap: '1.5rem'
         }}>
           {CERTIFICATES_DATA.map((cert, index) => (

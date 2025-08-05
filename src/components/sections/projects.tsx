@@ -32,7 +32,7 @@ export default function ProjectsSection() {
         position: 'relative'
       }}
     >
-      <div className="container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <div className="container" style={{ maxWidth: '1600px', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export default function ProjectsSection() {
 
         <div className="projects-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))',
           gap: '2rem',
           alignItems: 'stretch'
         }}>

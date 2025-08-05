@@ -46,6 +46,18 @@ export const PROJECTS_DATA: Project[] = [
     status: 'completed',
   },
   {
+    id: 'figma-clone-softvence',
+    title: 'Florida and Texas Hard Money Lenders Landing Page',
+    description:
+      'Pixel Perfect Design from provided Figma Design. Full responsive with all types of device',
+    image: '/images/softvence.png',
+    demoLink: 'https://design-figma-clone.vercel.app/',
+    githubLink: 'https://github.com/shishir786/design-figma-clone.git',
+    tags: ['NextJs', 'ShadCN'],
+    category: 'Front-End',
+    status: 'completed',
+  },
+  {
     id: 'tech-shop-web',
     title: 'Tech Shop E-commerce',
     description:

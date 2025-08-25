@@ -104,6 +104,9 @@ export default function HomeSection() {
           Passionate about programming, software development, and problem-solving.<br />
           Seeking opportunities to contribute to innovative projects and grow my skills.
         </p>
+
+
+
         <div className="home-socials">
           {socialLinks.map((social) => (
             <a
@@ -129,9 +132,31 @@ export default function HomeSection() {
         </a>
       </div>
       <div className="home-right">
-        <img src="/images/home.jpg" alt="Abdullah Shishir" className="home-img" />
+        <img src="/images/transparent_orange_removed.gif" alt="Abdullah Shishir" className="home-img" />
       </div>
       <style jsx>{`
+        @media (max-width: 1180px) {
+          .home-section {
+            flex-direction: column;
+            padding: 4rem 2vw 2rem 2vw;
+            gap: 2rem;
+          }
+          .home-left {
+            max-width: 100%;
+            width: 100%;
+          }
+          .home-right {
+            justify-content: center;
+            width: 100%;
+          }
+          .home-img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/10;
+            margin: 0 auto;
+          }
+        }
         .home-section {
           display: flex;
           align-items: center;
@@ -271,12 +296,13 @@ export default function HomeSection() {
           justify-content: flex-end;
         }
         .home-img {
-          width: 400px;
-          height: 400px;
-          object-fit: cover;
-          border-radius: 50%;
+          width: 100%;
+          max-width: 800px;
+          height: auto;
+          aspect-ratio: 16/10;
+          background: transparent;
           box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-          border: 6px solid var(--main-color);
+          display: block;
         }
         @media (max-width: 900px) {
           .home-section {
@@ -285,10 +311,7 @@ export default function HomeSection() {
             gap: 1rem;
           }
           .home-right {
-            margin-top: 0 !important;
-          }
-          .home-img {
-            margin-top: 0 !important;
+            display: none !important;
           }
         }
         @media (max-width: 600px) {

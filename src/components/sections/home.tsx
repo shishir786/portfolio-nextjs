@@ -130,9 +130,9 @@ export default function HomeSection() {
             </svg>
           </span>
         </a>
-      </div>
+      </div> 
       <div className="home-right">
-        <img src="/images/transparent_orange_removed.gif" alt="Abdullah Shishir" className="home-img" />
+        <img src="/images/transparent_orange_removed.gif" alt="Gif" className="home-img" />
       </div>
       <style jsx>{`
         @media (max-width: 1180px) {

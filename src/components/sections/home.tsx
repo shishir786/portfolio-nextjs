@@ -12,6 +12,7 @@ import {
   Twitter
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import FullStackAnimation from '../fullStactAnimation'
 
 export default function HomeSection() {
   const socialLinks = [
@@ -130,10 +131,16 @@ export default function HomeSection() {
             </svg>
           </span>
         </a>
-      </div> 
-      <div className="home-right">
-        <img src="/images/transparent_orange_removed.gif" alt="Gif" className="home-img" />
       </div>
+
+
+      <div className="home-right">
+
+        <FullStackAnimation />
+
+      </div>
+
+
       <style jsx>{`
         @media (max-width: 1180px) {
           .home-section {
@@ -304,6 +311,7 @@ export default function HomeSection() {
           box-shadow: 0 4px 24px rgba(0,0,0,0.10);
           display: block;
         }
+
         @media (max-width: 900px) {
           .home-section {
             flex-direction: column;
@@ -311,9 +319,15 @@ export default function HomeSection() {
             gap: 1rem;
           }
           .home-right {
-            display: none !important;
+            justify-content: hidden;
+            width: 100%;
+          }
+          .fullstack-container {
+            max-width: 800px;
+            margin: 0 auto;
           }
         }
+
         @media (max-width: 600px) {
           .home-left h1 {
             font-size: 2.5rem;
@@ -333,7 +347,12 @@ export default function HomeSection() {
             min-height: unset !important;
           }
           .home-right {
-            display: none;
+            display: hidden;
+            justify-content: hidden;
+            margin-top: 2rem;
+          }
+          .fullstack-container {
+            max-width: 100%;
           }
           .profession-mobile-break {
             display: flex;

@@ -32,7 +32,7 @@ export default function ProjectsSection() {
         position: 'relative'
       }}
     >
-      <div className="container" style={{ maxWidth: '1600px', margin: '0 auto' }}>
+      <div className="container" style={{ maxWidth: '1800px', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

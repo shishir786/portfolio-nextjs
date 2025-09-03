@@ -17,7 +17,7 @@ export default function CertificatesSection() {
       background: 'var(--bg-color)'
     }}>
       <div className="container" style={{
-        maxWidth: '1600px',
+        maxWidth: '1800px',
         margin: '0 auto'
       }}>
         <motion.h2

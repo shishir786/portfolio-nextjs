@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { BarChart3, Code, Code2 } from 'lucide-react'
-import { useState } from 'react'
+import { BarChart3, Code, Code2, Cpu, Database, Globe, Server, Smartphone } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 export default function ServicesSection() {
   const services = [
@@ -10,324 +10,426 @@ export default function ServicesSection() {
       icon: Code,
       title: "Web Development",
       description:
-        "Web developer skilled in Nextjs, NestJs creating dynamic, responsive, and user-friendly websites."
+        "Creating dynamic, responsive, and user-friendly websites using modern frameworks like Next.js, Vite, React, Express and NestJS.",
+      features: ["Responsive Design", "SEO Optimization", "Performance Tuning"]
     },
     {
       icon: Code2,
       title: "Software Development",
       description:
-        "Software developer skilled in building smart and efficient systems for businesses."
+        "Building smart and efficient systems for businesses with clean architecture and scalable solutions.",
+      features: ["System Architecture", "API Development", "Database Design"]
     },
     {
       icon: BarChart3,
       title: "AI & Data Analysis",
       description:
-        "AI and Data Analysis skilled in machine learning, data processing, and insights generation."
+        "Leveraging machine learning, data processing, and insights generation to solve complex problems.",
+      features: ["Machine Learning", "Data Visualization", "Predictive Analytics"]
     }
   ]
 
   const [activeService, setActiveService] = useState<number | null>(null)
-  const [activeSkill, setActiveSkill] = useState<number | null>(null)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 900)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    return () => {
+      window.removeEventListener('resize', checkMobile)
+    }
+  }, [])
 
   return (
-    <section id="services" className="services" style={{ background: 'var(--bg-color)', minHeight: 'auto', paddingBottom: '7rem' }}>
-      <motion.h2
+    <section id="services" className="services-section" style={{
+      background: 'var(--bg-color)',
+      padding: '6rem 5%',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Background decorative elements */}
+      <div style={{
+        position: 'absolute',
+        top: '-10%',
+        right: '-5%',
+        width: '300px',
+        height: '300px',
+        borderRadius: '50%',
+        background: 'var(--main-color)',
+        opacity: '0.05',
+        filter: 'blur(40px)'
+      }}></div>
+
+      <div style={{
+        position: 'absolute',
+        bottom: '-10%',
+        left: '-5%',
+        width: '250px',
+        height: '250px',
+        borderRadius: '50%',
+        background: 'var(--main-color)',
+        opacity: '0.05',
+        filter: 'blur(40px)'
+      }}></div>
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="heading"
-        style={{ marginBottom: '5rem', paddingBottom: '10px', fontSize: '4.5rem', textAlign: 'center', color: 'var(--text-color)' }}
+        className="section-header"
+        style={{ textAlign: 'center', marginBottom: '6rem', position: 'relative' }}
       >
-        My <span style={{ color: 'var(--main-color)' }}>Services</span>
-      </motion.h2>
+        <h2 style={{
+          fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontWeight: '700',
+          marginBottom: '1rem',
+          color: 'var(--text-color)'
+        }}>
+          My <span style={{ color: 'var(--main-color)' }}>Services</span>
+        </h2>
+        <p style={{
+          fontSize: '1.6rem',
+          maxWidth: '600px',
+          margin: '0 auto',
+          color: 'var(--text-color-secondary)',
+          lineHeight: '1.6'
+        }}>
+          Comprehensive solutions tailored to your needs, from web development to AI-powered analytics.
+        </p>
+      </motion.div>
 
-      <div
-        className="services-container"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '2rem'
-        }}
-      >
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '3rem',
+        marginBottom: '8rem'
+      }}>
         {services.map((service, index) => (
           <motion.div
             key={service.title}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: index * 0.12 }}
-            className={`services-box${isMobile && activeService === index ? ' active' : ''}`}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, delay: index * 0.1 }}
+            className="service-card"
             style={{
-              flex: '1 1 30rem',
-              background: 'var(--bg-color)',
-              padding: '3rem 2rem 4rem',
-              borderRadius: '2rem',
-              boxShadow: '0 0.1rem 0.5rem var(--shadow-color)',
-              textAlign: 'center',
-              borderTop: '0.6rem solid var(--main-color)',
-              borderBottom: '0.6rem solid var(--main-color)',
-              borderLeft: '0.05rem solid rgb(210, 209, 209)',
-              borderRight: '0.05rem solid rgb(210, 209, 209)',
-              minHeight: '300px',
-              height: '300px',
+              background: 'var(--card-bg)',
+              borderRadius: '1.5rem',
+              padding: '3rem 2.5rem',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: '0.5s ease'
+              height: '100%'
             }}
-            onClick={() => {
-              if (isMobile) setActiveService(activeService === index ? null : index)
-            }}
-            onMouseLeave={() => {
-              if (isMobile) setActiveService(null)
-            }}
+            onMouseEnter={() => !isMobile && setActiveService(index)}
+            onMouseLeave={() => !isMobile && setActiveService(null)}
+            onClick={() => isMobile && setActiveService(activeService === index ? null : index)}
           >
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
-              <service.icon
-                style={{
-                  fontSize: '7rem',
-                  color: 'var(--main-color)',
-                  width: '7rem',
-                  height: '7rem'
-                }}
-              />
+            <div style={{
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '5px',
+              background: 'var(--main-color)',
+              transform: activeService === index ? 'scaleX(1)' : 'scaleX(0)',
+              transformOrigin: 'left',
+              transition: 'transform 0.3s ease'
+            }}></div>
+
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '2.5rem'
+            }}>
+              <div style={{
+                width: '80px',
+                height: '80px',
+                borderRadius: '50%',
+                background: activeService === index ? 'var(--main-color)' : 'rgba(95, 111, 255, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease'
+              }}>
+                <service.icon style={{
+                  fontSize: '3.5rem',
+                  color: activeService === index ? '#fff' : 'var(--main-color)',
+                  width: '3.5rem',
+                  height: '3.5rem',
+                  transition: 'all 0.3s ease'
+                }} />
+              </div>
             </div>
-            <h3
-              style={{
-                fontSize: '2.6rem',
-                transition: '0.5s ease',
-                color: 'var(--text-color)',
-                marginBottom: '1rem'
-              }}
-            >
+
+            <h3 style={{
+              fontSize: '2.2rem',
+              fontWeight: '600',
+              marginBottom: '1.5rem',
+              color: 'var(--text-color)',
+              textAlign: 'center',
+              transition: 'color 0.3s ease'
+            }}>
               {service.title}
             </h3>
-            <p
-              style={{
-                fontSize: '1.6rem',
-                margin: '1rem 0 3rem',
-                color: 'var(--text-color)'
-              }}
-            >
+
+            <p style={{
+              fontSize: '1.6rem',
+              color: 'var(--text-color-secondary)',
+              marginBottom: '2.5rem',
+              lineHeight: '1.6',
+              flexGrow: 1,
+              textAlign: 'center'
+            }}>
               {service.description}
             </p>
+
+            <div style={{
+              height: activeService === index ? 'auto' : '0',
+              overflow: 'hidden',
+              transition: 'height 0.3s ease'
+            }}>
+              <ul style={{
+                listStyle: 'none',
+                padding: '0',
+                margin: '0 0 2rem 0'
+              }}>
+                {service.features.map((feature, i) => (
+                  <li key={i} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '1rem',
+                    fontSize: '1.4rem',
+                    color: 'var(--text-color-secondary)'
+                  }}>
+                    <div style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: 'var(--main-color)',
+                      marginRight: '1rem',
+                      flexShrink: 0
+                    }}></div>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  background: 'var(--main-color)',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '1.2rem 2.5rem',
+                  borderRadius: '50px',
+                  fontSize: '1.4rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  width: '100%',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                Learn More
+              </motion.button>
+            </div>
+
+            {activeService !== index && (
+              <div style={{
+                textAlign: 'center',
+                marginTop: 'auto',
+                paddingTop: '2rem'
+              }}>
+                <span style={{
+                  fontSize: '1.4rem',
+                  color: 'var(--main-color)',
+                  fontWeight: '500'
+                }}>
+                  {isMobile ? 'Tap to explore' : ''}
+                </span>
+              </div>
+            )}
           </motion.div>
         ))}
       </div>
 
       {/* Skills Section */}
-      <motion.h2
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="heading"
-        style={{
-          marginBottom: '4rem',
-          marginTop: '7rem',
-          fontSize: '4.5rem',
-          textAlign: 'center',
+        className="section-header"
+        style={{ textAlign: 'center', marginBottom: '6rem' }}
+      >
+        <h2 style={{
+          fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontWeight: '700',
+          marginBottom: '1rem',
           color: 'var(--text-color)'
-        }}
-      >
-        My <span style={{ color: 'var(--main-color)' }}>Skills</span>
-      </motion.h2>
+        }}>
+          My <span style={{ color: 'var(--main-color)' }}>Skills</span>
+        </h2>
+        <p style={{
+          fontSize: '1.6rem',
+          maxWidth: '600px',
+          margin: '0 auto',
+          color: 'var(--text-color-secondary)',
+          lineHeight: '1.6'
+        }}>
+          Technologies and tools I use to bring ideas to life and solve complex problems.
+        </p>
+      </motion.div>
 
-      <div
-        className="skills-container"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-          gap: '2.5rem',
-          padding: '0 1%'
-        }}
-      >
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+        gap: '2.5rem',
+        marginBottom: '8rem'
+      }}>
         {[
-          { icon: 'bxl-java', name: 'Java' },
-          { icon: 'bxl-python', name: 'Python' },
-          { icon: 'bxl-c-plus-plus', name: 'C++' },
-          { icon: 'bx-code-curly', name: 'C#' },
-          { icon: 'bxl-javascript', name: 'JavaScript' },
-          { icon: 'bxl-typescript', name: 'TypeScript' },
-          { icon: 'bxl-html5', name: 'HTML' },
-          { icon: 'bxl-css3', name: 'CSS' },
-          { icon: 'bxl-php', name: 'PHP' },
-          { icon: 'bxl-nodejs', name: 'NodeJS' },
-          { icon: 'bx-data', name: 'SQL' },
-          { icon: 'bxl-git', name: 'Git' },
-          { icon: 'bxl-tux', name: 'Linux' },
-          { icon: 'bxs-spreadsheet', name: 'Data Analysis' }
+          { icon: 'bxl-java', name: 'Java', category: 'Language' },
+          { icon: 'bxl-python', name: 'Python', category: 'Language' },
+          { icon: 'bxl-c-plus-plus', name: 'C++', category: 'Language' },
+          { icon: 'bx-code-curly', name: 'C#', category: 'Language' },
+          { icon: 'bxl-javascript', name: 'JavaScript', category: 'Language' },
+          { icon: 'bxl-typescript', name: 'TypeScript', category: 'Language' },
+          { icon: 'bxl-html5', name: 'HTML', category: 'Frontend' },
+          { icon: 'bxl-css3', name: 'CSS', category: 'Frontend' },
+          { icon: 'bxl-react', name: 'React', category: 'Frontend' },
+          { icon: 'bxl-vuejs', name: 'Vite', category: 'Frontend' },
+          { icon: 'bxl-nodejs', name: 'Node.js', category: 'Backend' },
+          { icon: 'bx-code', name: 'Express.js', category: 'Backend' },
+          { icon: 'bx-data', name: 'SQL', category: 'Database' },
+          { icon: 'bxl-mongodb', name: 'MongoDB', category: 'Database' },
+          { icon: 'bxl-git', name: 'Git', category: 'Tools' },
+          { icon: 'bx-brain', name: 'AI/ML', category: 'Specialty' },
         ].map((skill, index) => (
           <motion.div
             key={skill.name}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: index * 0.08 }}
-            className={`skills-box${isMobile && activeSkill === index ? ' active' : ''}`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{
+              duration: 0.5,
+              delay: index * 0.05,
+              type: "spring",
+              stiffness: 100
+            }}
+            className="skill-card"
             style={{
-              position: 'relative',
+              background: 'var(--card-bg)',
+              borderRadius: '1.2rem',
+              padding: '2rem 1.5rem',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '2rem',
-              borderRadius: '2rem',
-              boxShadow: '0 0 1rem var(--bg-color)',
-              background: 'transparent',
-              transition: '0.5s ease'
+              boxShadow: '0 5px 20px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden'
             }}
-            onClick={() => {
-              if (isMobile) setActiveSkill(activeSkill === index ? null : index)
-            }}
-            onMouseLeave={() => {
-              if (isMobile) setActiveSkill(null)
+            whileHover={{
+              y: -5,
+              scale: 1.2,
+              boxShadow: '0 10px 25px rgba(95, 111, 255, 0.15)'
             }}
           >
-            <div className="skills-content">
-              <i
-                className={`bx ${skill.icon}`}
-                style={{
-                  fontSize: '4rem',
-                  marginBottom: '1rem',
-                  transition: 'color 0.4s, filter 0.4s'
-                }}
-              ></i>
-              <h3 style={{
-                fontSize: '1.6rem',
-                color: 'var(--text-color)'
-              }}>
-                {skill.name}
-              </h3>
+            <motion.i
+              className={`bx ${skill.icon}`}
+              style={{
+                fontSize: '3.5rem',
+                marginBottom: '1.2rem',
+                color: 'var(--main-color)',
+              }}
+              whileHover={{ scale: 1.2 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            ></motion.i>
+            <h3 style={{
+              fontSize: '1.4rem',
+              fontWeight: '500',
+              color: 'var(--text-color)',
+              textAlign: 'center',
+              margin: '0'
+            }}>
+              {skill.name}
+            </h3>
+            <div style={{
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+              width: '100%',
+              padding: '0.3rem',
+              background: 'var(--main-color)',
+              opacity: '0.1',
+              fontSize: '0.8rem',
+              textAlign: 'center'
+            }}>
+              {skill.category}
             </div>
           </motion.div>
         ))}
       </div>
 
       {/* GitHub Stats Section */}
-      <motion.h2
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="heading"
-        style={{
-          marginBottom: '4rem',
-          marginTop: '7rem',
-          fontSize: '4.5rem',
-          textAlign: 'center',
+        className="section-header"
+        style={{ textAlign: 'center', marginBottom: '6rem' }}
+      >
+        <h2 style={{
+          fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontWeight: '700',
+          marginBottom: '1rem',
           color: 'var(--text-color)'
-        }}
-      >
-        My <span style={{ color: 'var(--main-color)' }}>GitHub Stats</span>
-      </motion.h2>
+        }}>
+          My <span style={{ color: 'var(--main-color)' }}>GitHub</span> Activity
+        </h2>
+        <p style={{
+          fontSize: '1.6rem',
+          maxWidth: '600px',
+          margin: '0 auto',
+          color: 'var(--text-color-secondary)',
+          lineHeight: '1.6'
+        }}>
+          Tracking my coding journey, contributions, and progress over time.
+        </p>
+      </motion.div>
 
-      <div
-        className="github-container"
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: '30px',
-          marginTop: '40px',
-          width: '100%'
-        }}
-      >
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '3rem',
+        marginBottom: '5rem'
+      }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="github-box"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7 }}
           style={{
-            width: '100%',
-            maxWidth: '900px',
-            display: 'flex',
-            height: '260px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#1a1a1a',
-            borderRadius: '10px',
-            boxShadow: '0px 0px 15px rgba(255, 255, 255, 0.2)',
-            overflow: 'hidden',
-            padding: '15px',
-            transition: 'transform 0.3s, box-shadow 0.3s'
-          }}
-        >
-          <img
-            src="https://nirzak-streak-stats.vercel.app/?user=shishir786&theme=dark"
-            alt="GitHub Streak"
-            style={{
-              width: '100%',
-              height: 'auto',
-              borderRadius: '5px',
-              transition: 'transform 0.3s ease-in-out'
-            }}
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="github-box"
-          style={{
-            width: '100%',
-            maxWidth: '900px',
-            display: 'flex',
-            height: '260px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#1a1a1a',
-            borderRadius: '10px',
-            boxShadow: '0px 0px 15px rgba(255, 255, 255, 0.2)',
-            overflow: 'hidden',
-            padding: '15px',
-            transition: 'transform 0.3s, box-shadow 0.3s'
-          }}
-        >
-          <img
-            src="https://github-readme-stats.vercel.app/api?username=shishir786&show_icons=true&theme=dark"
-            alt="GitHub Stats"
-            style={{
-              width: '100%',
-              height: 'auto',
-              borderRadius: '5px',
-              transition: 'transform 0.3s ease-in-out'
-            }}
-          />
-        </motion.div>
-      </div>
-
-      <div
-        className="github-container2"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '2rem',
-          width: '100%',
-          marginTop: '2rem'
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="github-box2"
-          style={{
-            width: '100%',
-            background: 'var(--bg-color)',
-            borderRadius: '2rem',
-            boxShadow: '0 0 1rem var(--main-color)',
-            padding: '1rem',
-            textAlign: 'center',
-            transition: 'transform 0.3s, box-shadow 0.3s'
+            background: 'var(--card-bg)',
+            borderRadius: '1.5rem',
+            padding: '2.5rem',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.05)',
+            gridColumn: '1 / -1'
           }}
         >
           <img
@@ -341,192 +443,66 @@ export default function ServicesSection() {
           />
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="github-box2"
-          style={{
-            width: '100%',
-            background: 'var(--bg-color)',
-            borderRadius: '2rem',
-            boxShadow: '0 0 1rem var(--main-color)',
-            padding: '1rem',
-            textAlign: 'center',
-            transition: 'transform 0.3s, box-shadow 0.3s'
-          }}
-        >
-          <img
-            src="https://ghchart.rshah.org/shishir786"
-            alt="GitHub Contribution Graph"
-            style={{
-              width: '100%',
-              height: 'auto',
-              borderRadius: '1rem'
-            }}
-          />
-        </motion.div>
+
       </div>
 
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, delay: 0.3 }}
+        style={{
+          background: 'var(--card-bg)',
+          borderRadius: '1.5rem',
+          padding: '2.5rem',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+          border: '1px solid rgba(255, 255, 255, 0.05)',
+          marginBottom: '3rem'
+        }}
+      >
+        <img
+          src="https://ghchart.rshah.org/shishir786"
+          alt="GitHub Contribution Graph"
+          style={{
+            width: '100%',
+            height: 'auto',
+            borderRadius: '1rem'
+          }}
+        />
+      </motion.div>
+
       <style jsx>{`
-        .services-box.active {
-          box-shadow: 0 0.1rem 0.5rem var(--shadow-color);
-          transform: scale(1.02);
-        }
-        .services-box.active h3 {
-          color: var(--main-color);
-        }
-        .skills-box.active {
-          transform: scale(1.06);
-          box-shadow: 0 0 2rem var(--main-color);
-          background: rgba(95, 111, 255, 0.08);
+        .service-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
-        .services-box:hover {
-          box-shadow: 0 0.1rem 0.5rem var(--shadow-color);
-          transform: scale(1.02);
-        }
-
-        .services-box:hover h3 {
+        .service-card:hover h3 {
           color: var(--main-color);
         }
 
-        .skills-box:hover {
-          transform: scale(1.02);
-          box-shadow: 0 0 2rem var(--main-color);
-        }
-
-        :global(.skills-box.active) i {
-          color: var(--accent-color) !important;
-          filter: drop-shadow(0 0 16px var(--main-color));
-        }
-        :global(.skills-box:hover) i {
-          color: var(--accent-color) !important;
-          filter: drop-shadow(0 0 16px var(--main-color));
-        }
-
-        .github-box img:hover {
-          transform: scale(1.05);
-        }
-
-        .github-box2:hover {
-          box-shadow: 0 0 1rem var(--main-color);
-        }
-
-        .github-box, .github-box2 {
-          transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .github-box:hover, .github-box:active {
-          transform: scale(1.04);
-          box-shadow: 0 0 2rem var(--main-color);
-        }
-        .github-box2:hover, .github-box2:active {
-          transform: scale(1.04);
-          box-shadow: 0 0 2rem var(--main-color);
+        .skill-card:hover i {
+          transform: scale(1.1);
         }
 
         @media (max-width: 768px) {
-          .skills-container {
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
-            padding: 0 3% !important;
+          .services-section {
+            padding: 4rem 5%;
           }
 
-          .skills-box {
-            padding: 1.5rem;
-          }
-
-          .skills-box i {
-            font-size: 3rem !important;
-          }
-
-          .skills-box h3 {
-            font-size: 1.4rem !important;
-          }
-
-          .github-container {
-            flex-direction: column !important;
-            gap: 2rem !important;
-          }
-
-          .github-box {
-            max-width: 100% !important;
-            height: auto !important;
-          }
-
-          .github-container2 {
-            gap: 1.5rem !important;
-          }
-
-          .github-box2 {
-            padding: 0.8rem !important;
+          .service-card {
+            padding: 2.5rem 2rem;
           }
         }
 
-        @media (max-width: 600px) {
-          .services-container {
-            flex-direction: column !important;
-            gap: 1rem !important;
+        @media (max-width: 480px) {
+          .services-section {
+            padding: 3rem 5%;
           }
-          .services-box {
-            padding: 1.2rem 0.8rem !important;
-            min-height: 180px !important;
-            height: auto !important;
-          }
-          .services-box h3 {
-            font-size: 1.3rem !important;
-          }
-          .services-box p {
-            font-size: 1rem !important;
-          }
-          .skills-container {
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)) !important;
-            gap: 1rem !important;
-            padding: 0 1% !important;
-          }
-          .skills-box {
-            padding: 0.8rem !important;
-          }
-          .skills-box i {
-            font-size: 2rem !important;
-          }
-          .skills-box h3 {
-            font-size: 1rem !important;
-          }
-          .github-container {
-            flex-direction: column !important;
-            gap: 1rem !important;
-          }
-          .github-box {
-            max-width: 100% !important;
-            height: auto !important;
-            padding: 0.5rem !important;
-          }
-          .github-container2 {
-            gap: 1rem !important;
-          }
-          .github-box2 {
-            padding: 0.5rem !important;
-          }
-        }
 
-        :global(.skills-box) {
-          position: relative;
-          overflow: visible;
-          z-index: 0;
-          background: var(--bg-color);
-          box-shadow: 0 2px 8px 0 rgba(80,80,180,0.08);
-          border: 2.5px solid transparent;
-          transition: transform 0.22s cubic-bezier(.4,2,.6,1), border 0.22s cubic-bezier(.4,2,.6,1);
-        }
-        :global(.skills-box:hover),
-        :global(.skills-box.active) {
-          transform: scale(1.06);
-          border: 2.5px solid var(--main-color);
-        }
-        :global(.skills-box:hover) .skills-content,
-        :global(.skills-box.active) .skills-content {
-          /* Optional: add a subtle background or effect if you want */
+          .service-card {
+            padding: 2rem 1.5rem;
+          }
         }
       `}</style>
     </section>
